@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Review from './components/Review/Review.jsx';
 import Search from './components/Search/Search.jsx';
+import DetailsPage from './components/DetailsPage.jsx';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+const Router = BrowserRouter;
 
 class App extends React.Component {
 
@@ -11,13 +13,16 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Search />
-        <Review />
-      </div>
+      <Router>
+        <div>
+          <Switch>
+            <Route exact path='/' component={Search}/>
+            <Route path='/details' component={DetailsPage} />
+          </Switch>
+        </div>
+      </Router>
     )
   }
 }
-
 
 ReactDOM.render(<App />, document.getElementById('app'));
