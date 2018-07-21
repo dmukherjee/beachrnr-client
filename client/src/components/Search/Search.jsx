@@ -19,6 +19,16 @@ class Search extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
+
+  componentDidMount() {
+    let results = listings.filter(listing => 
+      listing.city === 'San Francisco'
+    );
+    this.setState({
+      results: results,
+      query: 'San Francisco'
+    })
+  }
  
   handleInputChange() {
     this.setState({
@@ -57,6 +67,7 @@ class Search extends React.Component {
             />
           </Form.Field>
         </Div>
+        {this.state.query === 'San Francisco' ? <Div style={ {fontSize: '25px',  marginLeft: '10px', color: '#696969', fontWeight: 'bold'} }>Places to stay near you</Div> : ''}
         {!this.state.query.length ? '' 
           : (this.state.results.length > 0 
             ? <Suggestions results={this.state.results} /> 
