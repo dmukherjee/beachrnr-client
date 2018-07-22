@@ -5,6 +5,7 @@ import DetailsPage from './components/DetailsPage.jsx';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 const Router = BrowserRouter;
 
+
 class App extends React.Component {
 
   constructor(props) {
