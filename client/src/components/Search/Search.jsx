@@ -1,6 +1,7 @@
 import React from 'react';
 // import { listings } from '../../data/mockedDataSearch';
 import Suggestions from './Suggestions.jsx'
+import HitsCount from './HitsCount.jsx'
 import api from '../../../utils/api';
 import { Form, Header } from 'semantic-ui-react'
 import styled from 'styled-components';
@@ -83,6 +84,7 @@ class Search extends React.Component {
             />
           </Form.Field>
         </Div>
+        <HitsCount hitsCount={this.state.hitsCount} timeTaken={this.state.timeTaken} />
         {this.state.query === 'San Francisco' ? <HeaderDiv>Places to stay near you</HeaderDiv> : ''}
         {!this.state.query.length ? '' 
           : (this.state.results.length > 0 
