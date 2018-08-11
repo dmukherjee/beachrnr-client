@@ -35,11 +35,8 @@ class Search extends React.Component {
     let currentLocation = 'San Francisco';
     api.fetchListings(currentLocation)
     .then(results => {
-      let filteredResult = results.filter(listing => 
-        listing.city === currentLocation
-      );
       this.setState({
-        results: filteredResult,
+        results: results.data,
         query: currentLocation,
         hitsCount: results.count,
         timeTaken: results.timeTaken
