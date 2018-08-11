@@ -23,7 +23,9 @@ class Search extends React.Component {
     super(props);
     this.state = {
       query: '',
-      results: []
+      results: [],
+      hitsCount: 0,
+      timeTaken: 0
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -38,7 +40,9 @@ class Search extends React.Component {
       );
       this.setState({
         results: filteredResult,
-        query: currentLocation
+        query: currentLocation,
+        hitsCount: results.count,
+        timeTaken: results.timeTaken
       })
     }, err => console.log(err));
   }
@@ -62,7 +66,9 @@ class Search extends React.Component {
     api.fetchListings(location)
     .then(results => {
       this.setState({
-        results: results
+        results: results.data,
+        hitsCount: results.count,
+        timeTaken: results.timeTaken
       })
     })
   }
