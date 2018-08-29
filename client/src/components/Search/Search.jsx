@@ -25,6 +25,16 @@ const HeaderDiv = styled(Header)`
   font-weight: bold;
 `;
 
+const ClearButton = styled.a`
+  position: absolute !important;
+  top: 50% !important;
+  right: 10px !important;
+  margin-top: -10px !important;
+  font-size: 26px !important;
+  cursor: pointer !important;
+  color: gray;
+`;
+
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -81,13 +91,17 @@ class Search extends React.Component {
     return (
       <Form>
         <Div>
-          <Form.Field>
+          <Form.Field style= {{ position: 'relative'}}>
             <input style={ {backgroundImage: 'url(searchIcon.png)', backgroundPosition: 'left center', backgroundRepeat: 'no-repeat', paddingLeft: '40px', height: '48px'} }
               placeholder='Destination...'
+              id='searchbox'
               ref={input => this.search = input}
               onChange={_.debounce(this.handleInputChange, 500)}
               onKeyPress={(e)=>{this.handleKeyPress(e, _.debounce(this.handleInputChange, 500))}}
             />
+            <ClearButton id='close' onClick={() => document.querySelector('#searchbox').value = ''} className='close'>
+              &times;
+            </ClearButton>
           </Form.Field>
         </Div>
         {this.state.query.length ?
