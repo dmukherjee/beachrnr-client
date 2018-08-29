@@ -32,7 +32,7 @@ const ClearButton = styled.a`
   margin-top: -10px !important;
   font-size: 26px !important;
   cursor: pointer !important;
-  color: gray;
+  color: #C0C0C0;
 `;
 
 class Search extends React.Component {
@@ -46,6 +46,7 @@ class Search extends React.Component {
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.onButtonClick = this.onButtonClick.bind(this);
   }
 
   componentDidMount() {
@@ -76,6 +77,14 @@ class Search extends React.Component {
     }
   }
 
+  async onButtonClick(selector) {
+    await selector.focus();
+    selector.value = '';
+    this.setState({
+      results: this.state.results
+    })
+  }
+
   getInfo(location) {
     api.fetchListings(location)
     .then(results => {
@@ -88,6 +97,7 @@ class Search extends React.Component {
   }
 
   render() {
+    let inputQuery = document.querySelector('#searchbox');
     return (
       <Form>
         <Div>
@@ -99,9 +109,12 @@ class Search extends React.Component {
               onChange={_.debounce(this.handleInputChange, 500)}
               onKeyPress={(e)=>{this.handleKeyPress(e, _.debounce(this.handleInputChange, 500))}}
             />
-            <ClearButton id='close' onClick={() => document.querySelector('#searchbox').value = ''} className='close'>
-              &times;
-            </ClearButton>
+            { inputQuery && inputQuery.value !== null && inputQuery.value !== '' ?
+              (<ClearButton id='close' onClick={() => this.onButtonClick(inputQuery)} className='close'>
+                &times;
+              </ClearButton>)
+              : ''
+            }
           </Form.Field>
         </Div>
         {this.state.query.length ?
